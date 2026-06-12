@@ -353,3 +353,91 @@ footer {
         font-size: 1.9rem;
     }
 }
+/* ===== MOBILE FRIENDLY (2 COLUMNS ON PHONE) ===== */
+@media (max-width: 768px) {
+  /* 1. Stats ek line mein */
+  .hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  
+  .stat-item {
+    flex: 1;
+    min-width: 70px;
+    text-align: center;
+  }
+  
+  .stat-item h3 {
+    font-size: 1.2rem;
+  }
+  
+  .stat-item p {
+    font-size: 0.65rem;
+  }
+  
+  /* 2. Cards, Trainers, Testimonials → 2 per line */
+  .cards-grid,
+  .trainer-grid,
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .card, .trainer-card, .testimonial {
+    padding: 16px 12px;
+  }
+  
+  /* 3. App features 2 per line */
+  .app-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  /* 4. Footer 2 columns */
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  /* 5. Hero heading chota */
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+  
+  /* 6. Badges wrap properly */
+  .program-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .badge {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+  
+  /* 7. Navbar mobile friendly */
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+  
+  .nav-links a {
+    margin-left: 0;
+    font-size: 0.9rem;
+  }
+}
