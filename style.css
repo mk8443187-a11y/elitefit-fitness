@@ -1,0 +1,121 @@
+/* ===== FULLY REWRITTEN MOBILE FRIENDLY STYLES ===== */
+/* 1. Fix viewport & base */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  font-size: 16px;
+}
+
+/* 2. Hero section: text chota, stats ek line mein */
+.hero-content h1 {
+  font-size: 2rem !important;
+  word-break: break-word;
+}
+
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.stat-item {
+  flex: 1 1 auto;
+  min-width: 70px;
+  text-align: center;
+}
+
+.stat-item h3 {
+  font-size: 1.4rem;
+  margin-bottom: 4px;
+}
+
+.stat-item p {
+  font-size: 0.7rem;
+}
+
+/* 3. Cards aur trainers : 2 per line */
+.cards-grid, .trainer-grid, .testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.card, .trainer-card, .testimonial {
+  margin: 0;
+  padding: 20px 12px;
+}
+
+/* 4. Badges wrap & font adjust */
+.program-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.badge {
+  font-size: 0.8rem;
+  padding: 6px 14px;
+}
+
+/* 5. App section: features 2 per line */
+.app-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  text-align: center;
+}
+
+/* 6. Footer grid 2 columns */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+/* 7. Navbar fix for mobile */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+  
+  .nav-links a {
+    margin-left: 0;
+    font-size: 0.9rem;
+  }
+  
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 0;
+  }
+  
+  .hero-stats {
+    justify-content: center;
+  }
+  
+  .btn-primary, .btn-secondary {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .contact-form {
+    padding: 24px 16px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+}
