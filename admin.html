@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - EliteFit</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .admin-container { max-width: 1000px; margin: 40px auto; padding: 20px; }
+        .admin-card { background: #111; padding: 25px; border-radius: 28px; margin-bottom: 30px; border: 1px solid #2a2a2a; }
+        .admin-card h2 { color: #ff7b42; margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; }
+        input, textarea { width: 100%; padding: 12px; background: #1e1e1e; border: 1px solid #333; border-radius: 16px; color: white; font-family: monospace; }
+        button { background: #ff7b42; border: none; padding: 12px 24px; border-radius: 40px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .msg { color: #4caf50; margin-top: 10px; font-size: 0.9rem; }
+        hr { border-color: #2a2a2a; margin: 20px 0; }
+        .note { background: #2a2a2a; padding: 15px; border-radius: 16px; margin-top: 20px; font-size: 0.8rem; color: #ccc; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo">ELITEFIT <span>ADMIN</span></div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="admin.html">Admin</a>
+            </div>
+        </nav>
+    </div>
+
+    <div class="admin-container">
+        <div class="admin-card">
+            <h2>✏️ Edit "WHY CHOOSE US" (3 Cards)</h2>
+            <div id="whyChooseForm"></div>
+            <button id="saveWhyChoose">💾 Save Changes</button>
+            <div id="whyMsg" class="msg"></div>
+        </div>
+
+        <div class="admin-card">
+            <h2>📦 Edit Membership Plans (Basic / Pro / Elite)</h2>
+            <div id="membershipForm"></div>
+            <button id="saveMembership">💾 Save Plans</button>
+            <div id="memberMsg" class="msg"></div>
+        </div>
+
+        <div class="admin-card">
+            <h2>📝 Edit About Us Text</h2>
+            <textarea id="aboutText" rows="6" placeholder="Write about us content..."></textarea>
+            <button id="saveAbout">💾 Save About Us</button>
+            <div id="aboutMsg" class="msg"></div>
+        </div>
+
+        <div class="note">
+            ⚠️ <strong>Note:</strong> Changes are saved in your browser's localStorage. They will work only on this device/browser. 
+            To make permanent changes across all devices, a backend + database is required.
+        </div>
+    </div>
+
+    <script>
+        // ---------- WHY CHOOSE FORM ----------
+        function loadWhyChooseForm() {
+            const defaultCards = [
+                { icon: "fas fa-chalkboard-user", title: "EXPERT TRAINERS", desc: "Certified and experienced trainers to guide you every step." },
+                { icon: "fas fa-dumbbell", title: "MODERN EQUIPMENT", desc: "Latest imported machines in a premium environment." },
+                { icon: "fas fa-clipboard-list", title: "PERSONALIZED PLANS", desc: "Custom workout & diet plans for your goals." }
+            ];
+            let saved = localStorage.getItem("elitefit_why_choose");
+            let cards = saved ? JSON.parse(saved) : defaultCards;
+            let html = '';
+            cards.forEach((card, idx) => {
+                html += `
+                    <div class="form-group">
+                        <label>Card ${idx+1} - Icon Class (Fontawesome)</label>
+                        <input type="text" id="why_icon_${idx}" value="${card.icon}" placeholder="e.g., fas fa-dumbbell">
+                        <label>Heading</label>
+                        <input type="text" id="why_title_${idx}" value="${card.title}">
+                        <label>Description</label>
+                        <textarea id="why_desc_${idx}" rows="2">${card.desc}</textarea>
+                    </div>
+                    <hr>
+                `;
+            });
+            document.getElementById("whyChooseForm").innerHTML = html;
+        }
+
+        // ---------- MEMBERSHIP FORM ----------
+        function loadMembershipForm() {
+            const defaultPlans = [
+                { name: "BASIC", price: "1,999", features: ["Gym access (6 AM - 10 PM)","Cardio & weight area","Locker room access"] },
+                { name: "PRO", price: "3,499", features: ["24/7 Gym access","All equipment + functional zone","2 free PT sessions/month","Basic diet plan","Group classes included"] },
+                { name: "ELITE", price: "5,999", features: ["24/7 Gym + VIP zone","Unlimited PT sessions","Custom diet & workout plan","Priority class booking","Free protein shake (daily)"] }
+            ];
+            let saved = localStorage.getItem("elitefit_membership_plans");
+            let plans = saved ? JSON.parse(saved) : defaultPlans;
+            let html = '';
+            plans.forEach((plan, idx) => {
+                let featuresStr = plan.features.join(', ');
+                html += `
+                    <div class="form-group">
+                        <label>Plan ${idx+1} Name</label>
+                        <input type="text" id="plan_name_${idx}" value="${plan.name}">
+                        <label>Price (₹ only number)</label>
+                        <input type="text" id="plan_price_${idx}" value="${plan.price}">
+                        <label>Features (comma separated)</label>
+                        <input type="text" id="plan_features_${idx}" value="${featuresStr}">
+                    </div>
+                    <hr>
+                `;
+            });
+            document.getElementById("membershipForm").innerHTML = html;
+        }
+
+        // ---------- ABOUT US ----------
+        function loadAboutText() {
+            const defaultAbout = "EliteFit Gym started in 2010 with a mission to transform lives. We have 5000+ members and 50+ expert trainers. Our philosophy: fitness for everyone. We offer state-of-the-art equipment, personalized plans, and a supportive community.";
+            let saved = localStorage.getItem("elitefit_about_text");
+            document.getElementById("aboutText").value = saved ? saved : defaultAbout;
+        }
+
+        // ---------- SAVE HANDLERS ----------
+        document.getElementById("saveWhyChoose").addEventListener("click", () => {
+            let newCards = [];
+            for(let i=0; i<3; i++) {
+                let icon = document.getElementById(`why_icon_${i}`).value;
+                let title = document.getElementById(`why_title_${i}`).value;
+                let desc = document.getElementById(`why_desc_${i}`).value;
+                newCards.push({ icon, title, desc });
+            }
+            localStorage.setItem("elitefit_why_choose", JSON.stringify(newCards));
+            document.getElementById("whyMsg").innerText = "✅ Why Choose Us updated!";
+            setTimeout(() => document.getElementById("whyMsg").innerText = "", 2000);
+        });
+
+        document.getElementById("saveMembership").addEventListener("click", () => {
+            let newPlans = [];
+            for(let i=0; i<3; i++) {
+                let name = document.getElementById(`plan_name_${i}`).value;
+                let price = document.getElementById(`plan_price_${i}`).value;
+                let featuresStr = document.getElementById(`plan_features_${i}`).value;
+                let features = featuresStr.split(',').map(f => f.trim());
+                newPlans.push({ name, price, features });
+            }
+            localStorage.setItem("elitefit_membership_plans", JSON.stringify(newPlans));
+            document.getElementById("memberMsg").innerText = "✅ Membership plans saved!";
+            setTimeout(() => document.getElementById("memberMsg").innerText = "", 2000);
+        });
+
+        document.getElementById("saveAbout").addEventListener("click", () => {
+            let aboutText = document.getElementById("aboutText").value;
+            localStorage.setItem("elitefit_about_text", aboutText);
+            document.getElementById("aboutMsg").innerText = "✅ About Us text saved!";
+            setTimeout(() => document.getElementById("aboutMsg").innerText = "", 2000);
+        });
+
+        loadWhyChooseForm();
+        loadMembershipForm();
+        loadAboutText();
+    </script>
+</body>
+</html>
