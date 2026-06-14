@@ -119,3 +119,89 @@ body {
     font-size: 1.8rem;
   }
 }
+/* Pricing / Membership Page */
+.pricing-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin: 40px 0;
+}
+.pricing-card {
+    background: #111;
+    border-radius: 32px;
+    padding: 32px 24px;
+    width: 300px;
+    text-align: center;
+    border: 1px solid #2a2a2a;
+    transition: 0.3s;
+    position: relative;
+}
+.pricing-card:hover {
+    transform: translateY(-8px);
+    border-color: #ff7b42;
+}
+.pricing-card.popular {
+    border: 2px solid #ff7b42;
+    background: #1a1a1a;
+}
+.popular-badge {
+    background: #ff7b42;
+    color: #000;
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+.price {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 20px 0;
+    color: #ff7b42;
+}
+.price span {
+    font-size: 1rem;
+    font-weight: normal;
+    color: #aaa;
+}
+.pricing-card ul {
+    text-align: left;
+    margin: 25px 0;
+    list-style: none;
+    padding-left: 8px;
+}
+.pricing-card li {
+    margin: 12px 0;
+    font-size: 0.9rem;
+}
+.contact-call-card {
+    background: #111;
+    border-radius: 32px;
+    padding: 40px;
+    text-align: center;
+    margin: 20px 0;
+}
+.contact-call-card h2 {
+    color: #ff7b42;
+    margin-bottom: 20px;
+}
+.contact-call-card a {
+    color: #ff7b42;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+.contact-call-card p {
+    margin: 12px 0;
+}
+@media (max-width: 768px) {
+    .pricing-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}
